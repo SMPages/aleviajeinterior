@@ -1,0 +1,48 @@
+<section id="testimonios" class="testimonials">
+  <div class="container">
+    <div class="testimonials__header">
+      <h2 class="testimonials__title">Testimonios</h2>
+      <p class="testimonials__subtitle">Historias reales de transformación y sanación</p>
+    </div>
+
+    <div class="testimonials__carousel">
+      <div class="testimonials__card">
+        <div class="testimonials__controls">
+          <button class="testimonials__control" (click)="prevTestimonial()" aria-label="Testimonio anterior">
+            <span>‹</span>
+          </button>
+
+          <div class="testimonials__dots">
+            <button
+              *ngFor="let testimonial of testimonials; let i = index"
+              class="testimonials__dot"
+              [class.testimonials__dot--active]="i === currentIndex"
+              (click)="goToTestimonial(i)"
+              [attr.aria-label]="'Ir al testimonio ' + (i + 1)"
+            ></button>
+          </div>
+
+          <button class="testimonials__control" (click)="nextTestimonial()" aria-label="Siguiente testimonio">
+            <span>›</span>
+          </button>
+        </div>
+
+        <div class="testimonials__content" [@slideIn]="currentIndex">
+          <div class="testimonials__avatar">
+            <img
+              [src]="currentTestimonial.image"
+              [alt]="currentTestimonial.name"
+              class="testimonials__avatar-img"
+            />
+          </div>
+
+          <blockquote class="testimonials__quote">
+            "{{ currentTestimonial.text }}"
+          </blockquote>
+
+          <cite class="testimonials__author">{{ currentTestimonial.name }}</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

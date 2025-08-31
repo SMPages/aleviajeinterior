@@ -1,0 +1,125 @@
+@use '../../../styles.scss' as *;
+@use 'sass:color';
+
+.contact {
+  padding: 4rem 1rem;
+  background: $color-sand;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    max-width: 32rem;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  &__title {
+    font-family: $font-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $foreground;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    color: rgba($foreground, 0.8);
+  }
+
+  &__form-wrapper {
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input,
+  &__textarea {
+    background: rgba(white, 0.9);
+    border: 1px solid rgba(white, 0.2);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: $foreground;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &::placeholder {
+      color: $muted-foreground;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-sage;
+      box-shadow: 0 0 0 3px rgba($color-sage, 0.1);
+    }
+  }
+
+  &__textarea {
+    resize: none;
+    min-height: 120px;
+  }
+
+  &__submit {
+    background: $color-sage;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: color.adjust($primary, $lightness: -10%);
+    }
+  }
+
+  &__whatsapp {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 40;
+  }
+
+  &__whatsapp-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: #25d366;
+    border: none;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: #22c55e;
+      transform: scale(1.05);
+    }
+  }
+
+  &__whatsapp-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

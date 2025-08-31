@@ -1,0 +1,47 @@
+<header class="header">
+  <div class="container">
+    <div class="header__content">
+      <!-- Logo -->
+      <div class="header__logo">AleViajeInterior</div>
+
+      <!-- Desktop Navigation -->
+      <nav class="header__nav header__nav--desktop">
+        <a (click)="scrollToSection('inicio')" class="header__nav-link">Inicio</a>
+        <a (click)="scrollToSection('sobre-mi')" class="header__nav-link">Sobre mí</a>
+        <a (click)="scrollToSection('programa')" class="header__nav-link">Programa</a>
+        <a (click)="scrollToSection('testimonios')" class="header__nav-link">Testimonios</a>
+        <a (click)="scrollToSection('blog')" class="header__nav-link">Blog</a>
+        <a (click)="scrollToSection('contacto')" class="header__nav-link">Contacto</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <button class="header__cta header__cta--desktop">
+        Reserva tu cupo
+      </button>
+
+      <!-- Mobile Menu Button -->
+      <button class="header__menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen">
+        <span class="header__menu-icon" [class.header__menu-icon--open]="isMenuOpen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="header__nav header__nav--mobile" 
+         [@mobileMenu]="isMenuOpen ? 'open' : 'closed'"
+         [class.header__nav--mobile-open]="isMenuOpen">
+      <div class="header__nav-mobile-content">
+        <a (click)="scrollToSection('inicio')" class="header__nav-link">Inicio</a>
+        <a (click)="scrollToSection('sobre-mi')" class="header__nav-link">Sobre mí</a>
+        <a (click)="scrollToSection('programa')" class="header__nav-link">Programa</a>
+        <a (click)="scrollToSection('testimonios')" class="header__nav-link">Testimonios</a>
+        <a (click)="scrollToSection('blog')" class="header__nav-link">Blog</a>
+        <a (click)="scrollToSection('contacto')" class="header__nav-link">Contacto</a>
+        <button class="header__cta header__cta--mobile">Reserva tu cupo</button>
+      </div>
+    </nav>
+  </div>
+</header>

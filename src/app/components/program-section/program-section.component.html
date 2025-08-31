@@ -1,0 +1,34 @@
+<section id="programa" class="program">
+  <div class="container">
+    <div class="program__header">
+      <h2 class="program__title">Programa de 90 días</h2>
+      <p class="program__subtitle">
+        Un proceso integral de sanación transgeneracional diseñado para tu transformación completa
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="program__features">
+      <div class="program__feature" *ngFor="let feature of features">
+        <div class="program__feature-icon">
+          <span>{{ feature.icon }}</span>
+        </div>
+        <h3 class="program__feature-title">{{ feature.title }}</h3>
+        <p class="program__feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="program__timeline">
+      <h3 class="program__timeline-title">Tu viaje de transformación</h3>
+      <div class="program__timeline-grid">
+        <div class="program__timeline-item" *ngFor="let item of timeline; let i = index">
+          <div class="program__timeline-number">{{ i + 1 }}</div>
+          <h4 class="program__timeline-week">{{ item.week }}</h4>
+          <h5 class="program__timeline-phase">{{ item.phase }}</h5>
+          <p class="program__timeline-description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

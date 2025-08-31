@@ -1,0 +1,31 @@
+<section id="blog" class="blog">
+  <div class="blog__container">
+    <div class="blog__header">
+      <h2 class="blog__title">Blog</h2>
+      <p class="blog__subtitle">Recursos y reflexiones para tu proceso de sanación</p>
+    </div>
+
+    <div class="blog__grid">
+      <article 
+        *ngFor="let article of articles; let i = index" 
+        class="blog__card"
+      >
+        <div class="blog__card-image">
+          <img
+            [src]="article.image || '/placeholder.svg'"
+            [alt]="article.title"
+            class="blog__image"
+          />
+        </div>
+
+        <div class="blog__card-content">
+          <h3 class="blog__card-title">{{ article.title }}</h3>
+          <p class="blog__card-excerpt">{{ article.excerpt }}</p>
+          <button class="blog__read-more">
+            Leer más →
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
