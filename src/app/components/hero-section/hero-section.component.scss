@@ -1,8 +1,20 @@
 @use '../../../styles.scss' as *;
 @use 'sass:color';
 
+/* === Paleta AleViajeInterior === */
+$al-white:     #FFFFFF;
+$al-arena:     #F5EDE3;
+$al-salvia:    #A8B5A2;
+$al-terracota: #C97C5D;
+$al-gray:      #7A7A7A;
+
+/* Tokens CTA */
+$cta-primary:  $al-terracota;
+$cta-second:   $al-salvia;
+
 .hero {
   padding: 6rem 1rem 4rem;
+  background: $al-white;
 
   &__content {
     display: grid;
@@ -18,70 +30,77 @@
   &__text {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
+  /* Título con énfasis invertido */
   &__title {
-    font-size: 2.5rem;
+    font-family: $font-serif;
     font-weight: 700;
-    color: $foreground;
-    line-height: 1.1;
+    line-height: 1.12;
+    color: $al-gray;
+    font-size: clamp(2.25rem, 2.5vw + 1rem, 3.75rem);
+    letter-spacing: .2px;
 
-    @include respond-to(tablet) {
-      font-size: 3rem;
-    }
-
-    @include respond-to(desktop) {
-      font-size: 3.5rem;
-    }
+    .text-primary   { color: $al-salvia; }    /* “reprimida” */
+    .text-secondary { color: $al-terracota; } /* “liberada en 90 días” */
   }
 
   &__subtitle {
     font-size: 1.125rem;
-    color: $muted-foreground;
+    color: $al-gray;
     line-height: 1.6;
+    text-wrap: pretty;
 
-    @include respond-to(tablet) {
-      font-size: 1.25rem;
-    }
+    @include respond-to(tablet) { font-size: 1.25rem; }
   }
 
+  /* Botones en fila; wrap si no caben */
   &__actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
-
-    @include respond-to(tablet) {
-      flex-direction: row;
-    }
+    align-items: center;
+    margin-top: .25rem;
   }
 
   &__cta {
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     font-size: 1.125rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
+    font-weight: 600;
+    border-radius: .6rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all .2s ease;
     border: 2px solid transparent;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
 
     &--primary {
-      background-color: $primary;
-      color: $white;
+      background-color: color.adjust($cta-primary, $lightness: -8%);
+      color: $al-white;
 
       &:hover {
-       background-color: color.adjust($primary, $lightness: -10%);
+        background-color: $al-white;
+        color: color.adjust($cta-primary, $lightness: -8%);
+        border-color: color.adjust($cta-primary, $lightness: -8%);
+      }
+      &:focus-visible {
+        outline: 3px solid color.adjust($cta-primary, $lightness: 18%);
+        outline-offset: 2px;
       }
     }
 
     &--secondary {
       background-color: transparent;
-      color: $accent;
-      border-color: $accent;
+      color: $cta-second;
+      border-color: $cta-second;
 
-      &:hover {
-        background-color: $accent;
-        color: $white;
+      &:hover { background-color: $cta-second; color: $al-white; }
+      &:focus-visible {
+        outline: 3px solid color.adjust($cta-second, $lightness: 18%);
+        outline-offset: 2px;
       }
     }
   }
@@ -89,19 +108,17 @@
   &__image {
     display: flex;
     justify-content: center;
-
-    @include respond-to(desktop) {
-      justify-content: flex-end;
-    }
+    @include respond-to(desktop) { justify-content: flex-end; }
   }
 
   &__image-container {
     aspect-ratio: 4/5;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     border-radius: 1rem;
     overflow: hidden;
-    background-color: $secondary;
+    background-color: color.scale($al-salvia, $lightness: 35%);
+    box-shadow: 0 10px 26px rgba(0,0,0,.08);
   }
 
   &__image-img {
@@ -109,4 +126,62 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+/* ========= Franja de Oferta ========= */
+.offer-strip {
+  margin-top: 1.5rem;
+  background: $al-arena; /* fondo arena claro */
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,.05);
+
+  @include respond-to(tablet) { padding: 2rem; }
+
+  &__header {
+    font-family: $font-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: $al-terracota;
+    margin-bottom: .5rem;
+  }
+
+  &__copy {
+    margin: 0 auto 1.25rem;
+    max-width: 40rem;
+    color: $al-gray;
+    font-size: 1.05rem;
+    line-height: 1.6;
+
+    strong { color: $al-terracota; }
+    em { font-style: italic; color: $al-terracota; font-weight: bold; }
+  }
+
+  &__cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: .6rem;
+    background-color: color.adjust($cta-primary, $lightness: -8%);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(201,124,93,.35);
+    transition: all .2s ease;
+
+    &:hover {
+      background-color: #fff;
+      color: color.adjust($cta-primary, $lightness: -8%);
+      box-shadow: 0 10px 24px rgba(201,124,93,.45);
+    }
+
+    &:active { transform: translateY(1px); }
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta, .offer-strip__cta { transition: none !important; }
 }

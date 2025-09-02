@@ -1,6 +1,28 @@
 @use '../../../styles.scss' as *;
 @use 'sass:color';
 
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* aire entre imagen y texto */
+}
+
+.header__logo-img {
+  height: 58px;   /* <- más grande (ajusta 56–64px a gusto) */
+  width: auto;
+}
+
+.header__logo-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $primary;     /* llamativo */
+  /* Alternativa fija de la paleta de Ale:
+     color: #C97C5D; // terracota
+  */
+}
+
 .header {
   position: fixed;
   top: 0;

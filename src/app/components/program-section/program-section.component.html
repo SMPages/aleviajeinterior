@@ -1,34 +1,37 @@
-<section id="programa" class="program">
+<section id="programa" class="program" aria-labelledby="program-title">
   <div class="container">
     <div class="program__header">
-      <h2 class="program__title">Programa de 90 días</h2>
+      <h2 id="program-title" class="program__title">Programa de 90 días</h2>
       <p class="program__subtitle">
         Un proceso integral de sanación transgeneracional diseñado para tu transformación completa
       </p>
     </div>
 
-    <!-- Features Grid -->
-    <div class="program__features">
-      <div class="program__feature" *ngFor="let feature of features">
-        <div class="program__feature-icon">
-          <span>{{ feature.icon }}</span>
+    <!-- Features -->
+    <div class="program__features" role="list">
+      <article class="feature" *ngFor="let feature of features" role="listitem">
+        <div class="feature__icon" aria-hidden="true">{{ feature.icon }}</div>
+        <div class="feature__body">
+          <h3 class="feature__title">{{ feature.title }}</h3>
+          <p class="feature__desc">{{ feature.description }}</p>
         </div>
-        <h3 class="program__feature-title">{{ feature.title }}</h3>
-        <p class="program__feature-description">{{ feature.description }}</p>
-      </div>
+      </article>
     </div>
 
     <!-- Timeline -->
-    <div class="program__timeline">
-      <h3 class="program__timeline-title">Tu viaje de transformación</h3>
-      <div class="program__timeline-grid">
-        <div class="program__timeline-item" *ngFor="let item of timeline; let i = index">
-          <div class="program__timeline-number">{{ i + 1 }}</div>
-          <h4 class="program__timeline-week">{{ item.week }}</h4>
-          <h5 class="program__timeline-phase">{{ item.phase }}</h5>
-          <p class="program__timeline-description">{{ item.description }}</p>
-        </div>
-      </div>
-    </div>
+    <section class="timeline" aria-labelledby="timeline-title">
+      <h3 id="timeline-title" class="timeline__title">Tu viaje de transformación</h3>
+
+      <ol class="timeline__list">
+        <li class="timeline__item" *ngFor="let item of timeline; let i = index">
+          <div class="timeline__dot"><span>{{ i + 1 }}</span></div>
+          <div class="timeline__card">
+            <h4 class="timeline__week">{{ item.week }}</h4>
+            <div class="timeline__phase">{{ item.phase }}</div>
+            <p class="timeline__desc">{{ item.description }}</p>
+          </div>
+        </li>
+      </ol>
+    </section>
   </div>
 </section>
