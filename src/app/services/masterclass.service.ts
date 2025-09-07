@@ -49,35 +49,64 @@ export class MasterclassService {
   private sb = inject(SUPABASE);
 
   // ==================== CLIENTES ====================
-  async registrarCliente(
-    nombre: string,
-    email: string,
-    telefono: string | null,
-    acepta: boolean,
-    version = 'v1',
-    utm?: { source?: string; medium?: string; campaign?: string }
-  ) {
-    const payload: LeadInput = {
-      nombre,
-      email,
-      telefono: telefono ?? null,
-      acepta_politicas: acepta,
-      version_politicas: version,
-      utm_source: utm?.source ?? null,
-      utm_medium: utm?.medium ?? null,
-      utm_campaign: utm?.campaign ?? null
-    };
+async registrarCliente(
+  nombre: string,
+  email: string,
+  telefono: string | null,
+  acepta: boolean,
+  version = 'v1',
+  utm?: { source?: string; medium?: string; campaign?: string }
+) {
+  const payload: LeadInput = {
+    nombre,
+    email,
+    telefono: telefono ?? null,
+    acepta_politicas: acepta,
+    version_politicas: version,
+    utm_source: utm?.source ?? null,
+    utm_medium: utm?.medium ?? null,
+    utm_campaign: utm?.campaign ?? null,
+  };
 
-    const { data, error } = await this.sb
-        .schema('masterclass')
-      .from('masterclass.clientes')
-      .insert([payload])
-      .select()
-      .single();
+  // 1) Inserta lead (sin .select() por RLS)
+  {
+    const { error } = await this.sb
+      .schema('masterclass')
+      .from('clientes')
+      .insert([payload]);
 
     if (error) throw error;
-    return data as any; // fila insertada
   }
+
+  // 2) Registrar SIEMPRE el consentimiento
+  const userAgent =
+    typeof navigator !== 'undefined' && navigator.userAgent
+      ? navigator.userAgent
+      : 'unknown';
+
+  // 2a) RPC (capta IP si tu función lo hace)
+  try {
+    const { error: rpcErr } = await this.sb.rpc('log_consent', {
+      p_email: email,
+      p_version: version,
+      p_user_agent: userAgent,
+    });
+    // Si la RPC devolviera error en respuesta:
+    if (rpcErr) throw rpcErr;
+  } catch {
+    // 2b) Fallback directo a la tabla (ignora error de forma segura)
+    const { error: clErr } = await this.sb
+    .schema('masterclass')
+    .from('consent_logs')
+    .upsert([{ email, version, user_agent: userAgent }], { onConflict: 'email,version' });
+
+    // No rompas el flujo si falla
+    // if (clErr) console.warn('No se pudo registrar consentimiento:', clErr);
+  }
+
+  return true;
+}
+
 
   // ==================== TESTIMONIOS ====================
 async enviarTestimonio(nombre: string, contenido: string, email?: string, fotoUrl?: string) {

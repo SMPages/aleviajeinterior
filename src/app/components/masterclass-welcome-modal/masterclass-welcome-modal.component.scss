@@ -1,0 +1,111 @@
+@use '../../../styles.scss' as *; // trae $al-terracota, $al-white, $al-gray, mixins, etc.
+@use 'sass:color';
+
+/* Backdrop más definido */
+.mcw__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.60);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 2000;
+}
+
+/* Caja: más ancha, con buen padding y sombra */
+.mcw__dialog {
+  position: relative;
+  width: min(92vw, 740px);
+  background: $al-white;
+  border: 1px solid #eee3d8;
+  border-radius: 22px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.28);
+  padding: 2rem 2rem 1.5rem;
+}
+
+/* Botón cerrar (X) */
+.mcw__close {
+  position: absolute;
+  right: .75rem;
+  top: .75rem;
+  width: 40px; height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #9a9a9a;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover { background: #f4f4f4; }
+}
+
+/* Tipografía */
+.mcw__header { text-align: center; margin-bottom: .5rem; }
+.mcw__title  {
+  margin: 0 0 .5rem;
+  font-weight: 800;
+  color: $al-gray;
+  font-size: clamp(1.25rem, 1.2rem + 1vw, 1.8rem);
+  line-height: 1.25;
+}
+.mcw__subtitle {
+  margin: 0 auto;
+  color: $al-gray;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
+/* Cuerpo */
+.mcw__body { margin-top: 1rem; color: $al-gray; }
+.mcw__bullets {
+  margin: .5rem auto 1rem;
+  padding-left: 1.25rem;
+  max-width: 60ch;
+
+  li { margin: .4rem 0; }
+}
+.mcw__note { margin: .25rem auto 0; max-width: 56ch; color: color.scale($al-gray, $lightness: 10%); }
+
+/* Acciones */
+.mcw__actions { margin-top: 1.25rem; display: flex; justify-content: center; }
+
+/* ===== Botón igual a los CTAs del hero ===== */
+.mcw__btn {
+  appearance: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  border-radius: .6rem;
+  padding: 1rem 1.5rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  min-width: 240px;         /* tamaño cómodo */
+  text-align: center;
+  transition: all .2s ease;
+}
+
+.mcw__btn--primary {
+  background-color: color.adjust($al-terracota, $lightness: -8%);
+  color: $al-white;
+  box-shadow: 0 8px 20px rgba(201,124,93,.35);
+
+  &:hover {
+    background-color: $al-white;
+    color: color.adjust($al-terracota, $lightness: -8%);
+    border-color: color.adjust($al-terracota, $lightness: -8%);
+    box-shadow: 0 10px 24px rgba(201,124,93,.45);
+  }
+  &:active { transform: translateY(1px); }
+  &:focus-visible {
+    outline: 3px solid color.adjust($al-terracota, $lightness: 18%);
+    outline-offset: 2px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .mcw__dialog { padding: 1.25rem; border-radius: 18px; }
+  .mcw__btn { min-width: 100%; }
+}

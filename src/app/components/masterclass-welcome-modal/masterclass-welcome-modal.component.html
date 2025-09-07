@@ -1,0 +1,36 @@
+<div *ngIf="open" class="mcw__backdrop" (click)="onBackdropClick($event)">
+  <div class="mcw__dialog"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="mcw-title"
+       aria-describedby="mcw-desc">
+    <button class="mcw__close" type="button" (click)="close()" aria-label="Cerrar">×</button>
+
+    <header class="mcw__header">
+      <h3 id="mcw-title" class="mcw__title">
+        ¡Bienvenida(0){{ nombre ? ', ' + nombre : '' }}!
+      </h3>
+      <p id="mcw-desc" class="mcw__subtitle">
+        Tu inscripción fue exitosa. Esta masterclass es <strong>grabada</strong> para que la veas cuando quieras.
+        Prepárate para arrancar <em>ahora mismo</em>.
+      </p>
+    </header>
+
+    <div class="mcw__body">
+      <ul class="mcw__bullets">
+        <li>Duración aprox.: 45–60 min.</li>
+        <li>Ten una libreta a mano: hay ejercicios guiados.</li>
+        <li>Puedes pausar y retomar cuando lo necesites.</li>
+      </ul>
+      <p class="mcw__note">
+        Guarda este enlace: podrás volver a verlo cuantas veces quieras.
+      </p>
+    </div>
+
+    <div class="mcw__actions">
+      <button #primaryBtn type="button" class="mcw__btn mcw__btn--primary" (click)="goNow()">
+        Ver ahora
+      </button>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@
 
 $radius: .9rem;
 
+/* ===== Bloque principal ===== */
 .mc-signup {
   padding: 1rem 0;
 
@@ -42,16 +43,22 @@ $radius: .9rem;
   &__msg {
     margin-top: .5rem;
     font-size: .95rem;
+
     &.is-ok  { color: color.adjust($al-salvia, $lightness: -10%); }
     &.is-err { color: color.adjust($al-terracota, $lightness: -10%); }
   }
 }
 
+/* ===== Campos ===== */
 .field {
   display: grid;
   gap: .35rem;
 
-  &__label { font-weight: 700; color: $al-gray; }
+  &__label {
+    font-weight: 700;
+    color: $al-gray;
+  }
+
   .req { color: color.adjust($al-terracota, $lightness: -10%); }
 
   &__control {
@@ -72,28 +79,62 @@ $radius: .9rem;
   }
 }
 
+/* ===== Consentimiento ===== */
+/* Variante A: checkbox + (label y link) dentro del mismo contenedor .check */
 .check {
-  display: flex;
+  display: inline-flex;            /* inline para que no barra todo el ancho */
   gap: .6rem;
-  align-items: start;
+  align-items: flex-start;
   font-size: .95rem;
   color: $al-gray;
+  flex-wrap: wrap;
 
   input[type='checkbox'] {
     margin-top: .2rem;
     width: 1.1rem; height: 1.1rem;
+    flex: 0 0 auto;
   }
 
+  /* Texto clicable que asocia el checkbox (si lo usas dentro de .check) */
+  &__label {
+    margin: 0;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  /* Enlace a políticas siempre clickeable */
+  &__link,
   a {
     color: color.adjust($cta-primary, $lightness: -8%);
     text-decoration: underline;
+    cursor: pointer;
+    pointer-events: auto;
+
     &:hover { text-decoration: none; }
   }
 }
 
-/* CTA terracota, mobile-first full width */
+/* Variante B (tu HTML actual): div.check seguido de label con el enlace */
+.mc-signup {
+  /* El label hermano inmediato NO ocupa todo el ancho ni tapa el link */
+  .check + label {
+    display: inline;               /* evita ancho 100% por estilos globales */
+    margin: 0;
+    color: $al-gray;
+
+    a {
+      color: color.adjust($cta-primary, $lightness: -8%);
+      text-decoration: underline;
+
+      &:hover { text-decoration: none; }
+      pointer-events: auto;
+    }
+  }
+}
+
+/* ===== CTA terracota ===== */
 .cta {
-  width: 100%;
+  width: 100%;                     /* mobile first */
   padding: .95rem 1.2rem;
   font-weight: 700;
   border-radius: .7rem;
@@ -111,8 +152,108 @@ $radius: .9rem;
       border-color: color.adjust($cta-primary, $lightness: -8%);
       box-shadow: 0 10px 24px rgba(201,124,93,.38);
     }
-    &:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+
+    &:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
   }
 
   @include respond-to(tablet) { width: auto; }
+}
+
+/* --- Fix solapamiento del label sobre el enlace --- */
+.mc-signup .check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+
+.mc-signup .check input[type='checkbox'] {
+  flex: 0 0 auto;
+  margin-top: .2rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* El label SOLO ocupa su texto, no todo el ancho */
+.mc-signup .check__label {
+  display: inline-flex !important;
+  max-width: max-content;
+  margin: 0;
+  line-height: 1.5;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;         /* por si hay sombras debajo */
+}
+
+/* El link queda por encima y siempre recibe el click */
+.mc-signup .check__link {
+  display: inline;
+  color: color.adjust($cta-primary, $lightness: -8%);
+  text-decoration: underline;
+  pointer-events: auto;
+  position: relative;
+  z-index: 3;
+
+  &:hover { text-decoration: none; }
+}
+
+/* Neutraliza posibles estilos globales problemáticos */
+.mc-signup .check label { /* cualquier label dentro de .check */
+  position: static !important;
+  width: auto !important;
+}
+/* El label del check no debe cubrir todo el ancho ni tener posición rara */
+.mc-signup .check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: .6rem;
+  line-height: 1.5;
+}
+.mc-signup .check input[type="checkbox"] { margin-top: .2rem; }
+
+/* Asegura que el link siempre reciba el click */
+.mc-signup .check a {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* Contenedor del consentimiento: evita solapamientos */
+.consent{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+
+.consent input[type='checkbox']{
+  margin-top: .2rem;
+  width: 1.1rem; height: 1.1rem;
+  flex: 0 0 auto;
+}
+
+/* El label NO ocupa todo el ancho ni tapa el link */
+.consent__label{
+  display: inline !important;
+  position: static !important;
+  width: auto !important;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* El enlace queda por encima y recibe el click */
+.consent__link{
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+  text-decoration: underline;
+  color: color.adjust($cta-primary, $lightness: -8%);
+  &:hover{ text-decoration: none; }
 }

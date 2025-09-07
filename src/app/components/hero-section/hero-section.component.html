@@ -1,47 +1,58 @@
 <section id="inicio" class="hero">
   <div class="container">
     <div class="hero__content">
-      <!-- Content -->
       <div class="hero__text">
         <h1 class="hero__title animate-fade-in-up text-balance">
-          De <span class="text-primary">reprimida</span> a <span class="text-secondary">liberada en 90 días</span> a través del antídoto al bloqueo emocional
+          De <span class="text-primary">reprimida</span> a
+          <span class="text-secondary">liberada en 90 días</span>
+          a través del antídoto al bloqueo emocional
         </h1>
 
         <p class="hero__subtitle text-pretty">
           Un viaje de sanación para soltar cargas heredadas y reconectar contigo misma
         </p>
-        <!-- 🔶 Franja de Oferta -->
+
         <div class="offer-strip" role="region" aria-label="Oferta especial">
           <div class="offer-strip__header">Oferta especial</div>
           <p class="offer-strip__copy">
             ¡Inscríbete ahora y accede <strong>100% gratis</strong> a la masterclass
             <em>“De reprimida a liberada en 90 días”</em>!
           </p>
-            <!-- CTA: ahora es botón -->
-          <button type="button"
-                  class="offer-strip__cta hero__cta hero__cta--primary"
-                  (click)="toggleSignup()"
-                  aria-controls="signup-form"
-                  [attr.aria-expanded]="showSignup">
-            {{ showSignup ? 'Cerrar formulario' : 'Inscribirme ahora' }}
+
+          <button
+            class="offer-strip__cta hero__cta hero__cta--primary"
+            type="button"
+            (click)="toggleSignup()"
+            [attr.aria-expanded]="showSignup ? 'true' : 'false'"
+            [attr.aria-controls]="'signup-form'">
+            {{ showSignup ? 'Ocultar formulario' : 'Inscribirme ahora' }}
           </button>
-        </div>
-        <!-- /Franja de Oferta -->
-          <div id="signup-form" *ngIf="showSignup" style="margin-top:1rem;">
-          <app-masterclass-signup (submitted)="showSignup=false"></app-masterclass-signup>
         </div>
       </div>
 
-      <!-- Image -->
       <div class="hero__image">
         <div class="hero__image-container">
-          <img
-            src="/images/profile.jpg"
-            alt="Mujer en proceso de sanación emocional"
-            class="hero__image-img"
-          />
+          <img src="/images/profile.jpg"
+               alt="Mujer en proceso de sanación emocional"
+               class="hero__image-img" />
         </div>
       </div>
     </div>
+
+    <!-- Formulario -->
+    <div id="signup-form" *ngIf="showSignup" style="margin-top: 1.5rem;">
+      <app-masterclass-signup
+        (submitted)="onSignupSubmitted()"
+        (submittedName)="onSignupSubmittedName($event)">
+      </app-masterclass-signup>
+    </div>
   </div>
 </section>
+
+<!-- Modal de bienvenida -->
+<app-masterclass-welcome-modal
+  [open]="showWelcome"
+  [masterclassRoute]="masterclassRoute"
+  [nombre]="welcomeName"
+  (closed)="closeWelcome()">
+</app-masterclass-welcome-modal>

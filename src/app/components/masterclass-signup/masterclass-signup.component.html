@@ -3,41 +3,75 @@
     <h3 id="mc-signup-title" class="mc-signup__title">Inscríbete a la masterclass</h3>
     <p class="mc-signup__subtitle">Completamente gratuita, cupos limitados</p>
 
-    <form class="mc-signup__form" (ngSubmit)="onSubmit()" novalidate>
-      <label class="field">
+    <form class="mc-signup__form"
+          (ngSubmit)="onSubmit()"
+          [attr.aria-busy]="submitting ? 'true' : 'false'"
+          novalidate>
+
+      <!-- Nombre -->
+      <label class="field" for="mc-name">
         <span class="field__label">Nombre <span aria-hidden="true" class="req">*</span></span>
-        <input class="field__control"
-               type="text" name="nombre" [(ngModel)]="nombre"
+        <input id="mc-name" class="field__control" type="text" name="nombre"
+               [(ngModel)]="nombre" (ngModelChange)="onChange()"
                required autocomplete="name" inputmode="text"
-               placeholder="Tu nombre completo"/>
+               placeholder="Tu nombre completo" spellcheck="false" />
       </label>
 
-      <label class="field">
+      <!-- Email -->
+      <label class="field" for="mc-email">
         <span class="field__label">Email <span aria-hidden="true" class="req">*</span></span>
-        <input class="field__control"
-               type="email" name="email" [(ngModel)]="email"
+        <input id="mc-email" class="field__control" type="email" name="email"
+               [(ngModel)]="email" (ngModelChange)="onChange()"
                required autocomplete="email" inputmode="email"
-               placeholder="tu@email.com"/>
+               placeholder="tu@email.com" spellcheck="false" />
       </label>
 
-      <label class="field">
+      <!-- Teléfono -->
+      <label class="field" for="mc-phone">
         <span class="field__label">Teléfono (opcional)</span>
-        <input class="field__control"
-               type="tel" name="telefono" [(ngModel)]="telefono"
-               autocomplete="tel" inputmode="tel"
-               placeholder="+57 300 000 0000"/>
+        <input id="mc-phone" class="field__control" type="tel" name="telefono"
+               [(ngModel)]="telefono" (ngModelChange)="onChange()"
+               autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" />
       </label>
 
-      <label class="check">
-        <input type="checkbox" [(ngModel)]="acepta" name="acepta" />
-        <span>Acepto las <a href="/politica-de-datos" target="_blank" rel="noopener">políticas de tratamiento de datos</a>.</span>
-      </label>
+      <!-- Consentimiento -->
+      <!-- Consentimiento -->
+      <div class="consent">
+        <input
+          id="mc-accept"
+          type="checkbox"
+          name="acepta"
+          [(ngModel)]="acepta"
+          (ngModelChange)="onChange()"
+          required
+          aria-describedby="mc-accept-help"
+        />
 
-      <button class="cta cta--primary" type="submit" [disabled]="submitting">
+        <!-- El label SOLO describe el checkbox -->
+        <label for="mc-accept" class="consent__label">Acepto las</label>
+
+        <!-- Enlace fuera del label: siempre navega -->
+        <a
+          class="consent__link"
+          href="/politica-de-datos"
+          target="_blank"
+          rel="noopener"
+          id="mc-accept-help"
+        >
+          políticas de tratamiento de datos
+        </a>.
+      </div>
+
+
+      <!-- CTA -->
+      <button class="cta cta--primary" type="submit" [disabled]="submitting || !acepta">
         {{ submitting ? 'Enviando…' : 'Inscribirme gratis' }}
       </button>
 
-      <p *ngIf="msg" class="mc-signup__msg" [class.is-ok]="success" [class.is-err]="!success">{{ msg }}</p>
+      <!-- Mensaje -->
+      <p *ngIf="msg" class="mc-signup__msg" [class.is-ok]="success" [class.is-err]="!success" aria-live="polite">
+        {{ msg }}
+      </p>
     </form>
   </div>
 </section>

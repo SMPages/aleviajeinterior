@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, Input, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -16,14 +16,15 @@ export class MasterclassSignupComponent {
   private route = inject(ActivatedRoute);
 
   @Output() submitted = new EventEmitter<void>();
+  @Output() submittedName = new EventEmitter<string>(); // ← emitimos el nombre
 
-  // Campos
+  @Input() versionPoliticas: string = 'v1';
+
   nombre = '';
   email = '';
   telefono = '';
   acepta = false;
 
-  // UTM (si vienen en la URL)
   utm = { source: '', medium: '', campaign: '' };
 
   submitting = false;
@@ -37,12 +38,28 @@ export class MasterclassSignupComponent {
     this.utm.campaign = qp.get('utm_campaign') ?? '';
   }
 
+  private isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  onChange() { if (this.msg) this.msg = ''; }
+
   async onSubmit() {
+    if (this.submitting) return;
+
     this.msg = '';
     this.success = false;
 
-    if (!this.nombre.trim() || !this.email.trim()) {
+    const nombre = this.nombre.trim();
+    const email = this.email.trim();
+    const telefono = this.telefono.trim() || null;
+
+    if (!nombre || !email) {
       this.msg = 'Nombre y email son obligatorios.';
+      return;
+    }
+    if (!this.isValidEmail(email)) {
+      this.msg = 'Por favor escribe un email válido.';
       return;
     }
     if (!this.acepta) {
@@ -53,21 +70,23 @@ export class MasterclassSignupComponent {
     this.submitting = true;
     try {
       await this.mc.registrarCliente(
-        this.nombre.trim(),
-        this.email.trim(),
-        this.telefono.trim() || null,
+        nombre,
+        email,
+        telefono,
         this.acepta,
-        'v1',
+        this.versionPoliticas,
         {
           source: this.utm.source || undefined,
           medium: this.utm.medium || undefined,
-          campaign: this.utm.campaign || undefined,
+          campaign: this.utm.campaign || undefined
         }
       );
 
       this.success = true;
       this.msg = '¡Gracias! Te hemos registrado para la masterclass. Revisa tu email.';
-      this.submitted.emit();
+
+      this.submitted.emit();           // evento de éxito
+      this.submittedName.emit(nombre); // ← enviamos el nombre al padre
 
       // reset suave
       this.nombre = '';
@@ -76,6 +95,7 @@ export class MasterclassSignupComponent {
       this.acepta = false;
     } catch (e: any) {
       this.msg = e?.message ?? 'Ocurrió un error al registrar tu inscripción.';
+      this.success = false;
     } finally {
       this.submitting = false;
     }
