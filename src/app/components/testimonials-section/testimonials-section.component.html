@@ -5,44 +5,53 @@
       <p class="testimonials__subtitle">Historias reales de transformación y sanación</p>
     </div>
 
-    <div class="testimonials__carousel">
+    <div *ngIf="loading" class="testimonials__loading">Cargando testimonios…</div>
+    <div *ngIf="!loading && errorMsg" class="testimonials__error">{{ errorMsg }}</div>
+
+    <div class="testimonials__carousel" *ngIf="!loading && !errorMsg && testimonials.length">
       <div class="testimonials__card">
-        <div class="testimonials__controls">
-          <button class="testimonials__control" (click)="prevTestimonial()" aria-label="Testimonio anterior">
-            <span>‹</span>
+        <div class="testimonials__controls" role="toolbar" aria-label="Controles de testimonios">
+          <button class="testimonials__control" (click)="prevTestimonial()" aria-label="Testimonio anterior" [disabled]="testimonials.length <= 1">
+            <span aria-hidden="true">‹</span>
           </button>
 
-          <div class="testimonials__dots">
+          <div class="testimonials__dots" *ngIf="testimonials.length > 1">
             <button
-              *ngFor="let testimonial of testimonials; let i = index"
+              *ngFor="let _ of testimonials; let i = index; trackBy: trackByIndex"
               class="testimonials__dot"
               [class.testimonials__dot--active]="i === currentIndex"
               (click)="goToTestimonial(i)"
               [attr.aria-label]="'Ir al testimonio ' + (i + 1)"
-            ></button>
+              [attr.aria-current]="i === currentIndex ? 'true' : null">
+            </button>
           </div>
 
-          <button class="testimonials__control" (click)="nextTestimonial()" aria-label="Siguiente testimonio">
-            <span>›</span>
+          <button class="testimonials__control" (click)="nextTestimonial()" aria-label="Siguiente testimonio" [disabled]="testimonials.length <= 1">
+            <span aria-hidden="true">›</span>
           </button>
         </div>
 
-        <div class="testimonials__content" [@slideIn]="currentIndex">
-          <div class="testimonials__avatar">
-            <img
-              [src]="currentTestimonial.image"
-              [alt]="currentTestimonial.name"
-              class="testimonials__avatar-img"
-            />
+        <div class="testimonials__content" [@slideIn]="currentIndex" *ngIf="currentTestimonial as ct">
+          <div class="testimonials__avatar" *ngIf="ct.image">
+            <img [src]="ct.image" [alt]="ct.name" class="testimonials__avatar-img" />
           </div>
 
-          <blockquote class="testimonials__quote">
-            "{{ currentTestimonial.text }}"
-          </blockquote>
-
-          <cite class="testimonials__author">{{ currentTestimonial.name }}</cite>
+          <blockquote class="testimonials__quote">"{{ ct.text }}"</blockquote>
+          <cite class="testimonials__author">{{ ct.name }}</cite>
         </div>
       </div>
+    </div>
+
+      <!-- CTA para abrir el formulario -->
+    <div class="testimonials__add">
+      <button type="button" class="al-cta al-cta--primary" (click)="toggleForm()">
+        {{ showForm ? 'Cerrar' : 'Agregar testimonio' }}
+      </button>
+    </div>
+
+    <!-- Formulario oculto hasta que den clic -->
+    <div id="testimonial-form" class="testimonials__form-wrapper" *ngIf="showForm">
+      <app-testimonial-submit></app-testimonial-submit>
     </div>
   </div>
 </section>

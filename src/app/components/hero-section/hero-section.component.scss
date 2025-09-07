@@ -1,13 +1,6 @@
 @use '../../../styles.scss' as *;
 @use 'sass:color';
 
-/* === Paleta AleViajeInterior === */
-$al-white:     #FFFFFF;
-$al-arena:     #F5EDE3;
-$al-salvia:    #A8B5A2;
-$al-terracota: #C97C5D;
-$al-gray:      #7A7A7A;
-
 /* Tokens CTA */
 $cta-primary:  $al-terracota;
 $cta-second:   $al-salvia;

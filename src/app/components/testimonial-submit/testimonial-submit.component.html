@@ -1,0 +1,66 @@
+<section class="testimonial-submit" aria-labelledby="testimonial-submit-title">
+  <div class="testimonial-submit__container">
+    <div class="testimonial-submit__header">
+      <h3 id="testimonial-submit-title" class="testimonial-submit__title">Deja tu testimonio</h3>
+      <p class="testimonial-submit__subtitle">Tu experiencia puede inspirar a otras personas</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="testimonial-submit__form" novalidate>
+      <div class="testimonial-submit__grid">
+        <label class="ts-field">
+          <span class="ts-field__label">Nombre <span class="ts-field__req" aria-hidden="true">*</span></span>
+          <input
+            type="text"
+            [(ngModel)]="nombre"
+            name="nombre"
+            required
+            class="ts-field__control"
+            placeholder="Ej. Ana María"
+            aria-required="true"
+          />
+        </label>
+
+        <label class="ts-field">
+          <span class="ts-field__label">Email (opcional)</span>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            class="ts-field__control"
+            placeholder="tu@email.com"
+          />
+        </label>
+      </div>
+
+      <label class="ts-field">
+        <span class="ts-field__label">Tu opinión <span class="ts-field__req" aria-hidden="true">*</span></span>
+        <textarea
+          [(ngModel)]="contenido"
+          name="contenido"
+          rows="4"
+          required
+          class="ts-field__control ts-field__control--area"
+          placeholder="Cuéntanos cómo te ayudó el proceso"
+          aria-required="true"
+        ></textarea>
+      </label>
+
+      <label class="ts-field ts-field--file">
+        <span class="ts-field__label">Foto (opcional)</span>
+        <input #fileInput id="testimonial-file" type="file" accept="image/*" (change)="onFile($event)" class="ts-field__file"/>
+        <span class="ts-field__hint">Formatos: JPG/PNG • Máx. ~5MB</span>
+      </label>
+
+      <div class="testimonial-submit__actions">
+        <button type="submit" class="ts-btn ts-btn--primary" [disabled]="submitting">
+          <span *ngIf="!submitting">Enviar testimonio</span>
+          <span *ngIf="submitting">Enviando…</span>
+        </button>
+
+        <p *ngIf="msg" class="testimonial-submit__msg" [class.is-success]="success" [class.is-error]="!success">
+          {{ msg }}
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
