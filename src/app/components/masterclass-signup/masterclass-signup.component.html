@@ -1,0 +1,43 @@
+<section class="mc-signup" aria-labelledby="mc-signup-title">
+  <div class="mc-signup__container">
+    <h3 id="mc-signup-title" class="mc-signup__title">Inscríbete a la masterclass</h3>
+    <p class="mc-signup__subtitle">Completamente gratuita, cupos limitados</p>
+
+    <form class="mc-signup__form" (ngSubmit)="onSubmit()" novalidate>
+      <label class="field">
+        <span class="field__label">Nombre <span aria-hidden="true" class="req">*</span></span>
+        <input class="field__control"
+               type="text" name="nombre" [(ngModel)]="nombre"
+               required autocomplete="name" inputmode="text"
+               placeholder="Tu nombre completo"/>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Email <span aria-hidden="true" class="req">*</span></span>
+        <input class="field__control"
+               type="email" name="email" [(ngModel)]="email"
+               required autocomplete="email" inputmode="email"
+               placeholder="tu@email.com"/>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Teléfono (opcional)</span>
+        <input class="field__control"
+               type="tel" name="telefono" [(ngModel)]="telefono"
+               autocomplete="tel" inputmode="tel"
+               placeholder="+57 300 000 0000"/>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" [(ngModel)]="acepta" name="acepta" />
+        <span>Acepto las <a href="/politica-de-datos" target="_blank" rel="noopener">políticas de tratamiento de datos</a>.</span>
+      </label>
+
+      <button class="cta cta--primary" type="submit" [disabled]="submitting">
+        {{ submitting ? 'Enviando…' : 'Inscribirme gratis' }}
+      </button>
+
+      <p *ngIf="msg" class="mc-signup__msg" [class.is-ok]="success" [class.is-err]="!success">{{ msg }}</p>
+    </form>
+  </div>
+</section>

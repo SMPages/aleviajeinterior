@@ -78,3 +78,56 @@
     object-fit: cover;
   }
 }
+/* ========= Franja de Oferta ========= */
+.offer-strip {
+  border-radius: 14px;
+  text-align: center;
+
+
+  @include respond-to(tablet) { padding: 2rem; }
+
+  &__header {
+    font-family: $font-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: $al-terracota;
+    margin-bottom: .5rem;
+  }
+
+  &__copy {
+    margin: 0 auto 1.25rem;
+    max-width: 40rem;
+    color: $al-gray;
+    font-size: 1.05rem;
+    line-height: 1.6;
+
+    strong { color: $al-terracota; }
+    em { font-style: italic; color: $al-terracota; font-weight: bold; }
+  }
+
+  &__cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: .6rem;
+    background-color: color.adjust($cta-primary, $lightness: -8%);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(201,124,93,.35);
+    transition: all .2s ease;
+
+    &:hover {
+      background-color: #fff;
+      color: color.adjust($cta-primary, $lightness: -8%);
+      box-shadow: 0 10px 24px rgba(201,124,93,.45);
+    }
+
+    &:active { transform: translateY(1px); }
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta, .offer-strip__cta { transition: none !important; }
+}

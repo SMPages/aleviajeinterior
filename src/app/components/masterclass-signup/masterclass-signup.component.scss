@@ -1,0 +1,118 @@
+@use '../../../styles.scss' as *;
+@use 'sass:color';
+
+$radius: .9rem;
+
+.mc-signup {
+  padding: 1rem 0;
+
+  &__container {
+    background: #fff;
+    border: 1px solid #eee8df;
+    border-radius: $radius;
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    padding: 1rem;
+    max-width: 720px;
+    margin: 0 auto;
+
+    @include respond-to(tablet) { padding: 1.5rem; }
+  }
+
+  &__title {
+    font-family: $font-serif;
+    font-weight: 700;
+    color: $al-gray;
+    font-size: 1.35rem;
+    margin: 0 0 .25rem;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: $al-gray;
+    opacity: .9;
+    text-align: center;
+    margin: 0 0 1rem;
+  }
+
+  &__form {
+    display: grid;
+    gap: .85rem;
+  }
+
+  &__msg {
+    margin-top: .5rem;
+    font-size: .95rem;
+    &.is-ok  { color: color.adjust($al-salvia, $lightness: -10%); }
+    &.is-err { color: color.adjust($al-terracota, $lightness: -10%); }
+  }
+}
+
+.field {
+  display: grid;
+  gap: .35rem;
+
+  &__label { font-weight: 700; color: $al-gray; }
+  .req { color: color.adjust($al-terracota, $lightness: -10%); }
+
+  &__control {
+    width: 100%;
+    border: 1px solid #e9e5df;
+    border-radius: .75rem;
+    padding: .7rem .9rem;
+    font-size: 1rem;
+    color: $al-gray;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+
+    &:focus {
+      outline: none;
+      border-color: color.adjust($al-salvia, $lightness: -5%);
+      box-shadow: 0 0 0 4px color.change($al-salvia, $alpha: .2);
+    }
+  }
+}
+
+.check {
+  display: flex;
+  gap: .6rem;
+  align-items: start;
+  font-size: .95rem;
+  color: $al-gray;
+
+  input[type='checkbox'] {
+    margin-top: .2rem;
+    width: 1.1rem; height: 1.1rem;
+  }
+
+  a {
+    color: color.adjust($cta-primary, $lightness: -8%);
+    text-decoration: underline;
+    &:hover { text-decoration: none; }
+  }
+}
+
+/* CTA terracota, mobile-first full width */
+.cta {
+  width: 100%;
+  padding: .95rem 1.2rem;
+  font-weight: 700;
+  border-radius: .7rem;
+  border: 2px solid transparent;
+  transition: all .2s ease;
+
+  &--primary {
+    background-color: color.adjust($cta-primary, $lightness: -8%);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(201,124,93,.28);
+
+    &:hover {
+      background-color: #fff;
+      color: color.adjust($cta-primary, $lightness: -8%);
+      border-color: color.adjust($cta-primary, $lightness: -8%);
+      box-shadow: 0 10px 24px rgba(201,124,93,.38);
+    }
+    &:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+  }
+
+  @include respond-to(tablet) { width: auto; }
+}

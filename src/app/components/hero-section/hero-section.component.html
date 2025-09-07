@@ -10,7 +10,6 @@
         <p class="hero__subtitle text-pretty">
           Un viaje de sanación para soltar cargas heredadas y reconectar contigo misma
         </p>
-
         <!-- 🔶 Franja de Oferta -->
         <div class="offer-strip" role="region" aria-label="Oferta especial">
           <div class="offer-strip__header">Oferta especial</div>
@@ -18,14 +17,19 @@
             ¡Inscríbete ahora y accede <strong>100% gratis</strong> a la masterclass
             <em>“De reprimida a liberada en 90 días”</em>!
           </p>
-          <a class="offer-strip__cta hero__cta hero__cta--primary"
-             [href]="registerHref"
-             target="_blank" rel="noopener"
-             aria-label="Inscribirme a la masterclass ahora">
-            Inscribirme ahora
-          </a>
+            <!-- CTA: ahora es botón -->
+          <button type="button"
+                  class="offer-strip__cta hero__cta hero__cta--primary"
+                  (click)="toggleSignup()"
+                  aria-controls="signup-form"
+                  [attr.aria-expanded]="showSignup">
+            {{ showSignup ? 'Cerrar formulario' : 'Inscribirme ahora' }}
+          </button>
         </div>
         <!-- /Franja de Oferta -->
+          <div id="signup-form" *ngIf="showSignup" style="margin-top:1rem;">
+          <app-masterclass-signup (submitted)="showSignup=false"></app-masterclass-signup>
+        </div>
       </div>
 
       <!-- Image -->

@@ -1,16 +1,27 @@
 import { Component } from "@angular/core";
-
+import { MasterclassSignupComponent } from "../masterclass-signup/masterclass-signup.component";
+import { NgIf } from "@angular/common";
 @Component({
   selector: "app-hero-section",
   standalone: true,
+  imports: [MasterclassSignupComponent, NgIf],
   templateUrl: "./hero-section.component.html",
   styleUrls: ["./hero-section.component.scss"],
 })
 export class HeroSectionComponent {
 
+  showSignup = false;
   // 👉 enlace para registro vía WhatsApp (cámbialo por tu número real o tu formulario)
-  registerHref: string =
-    "https://wa.me/573228969215?text=Quiero%20registrarme%20a%20la%20masterclass";
+  
+
+    toggleSignup() {
+  this.showSignup = !this.showSignup;
+  if (this.showSignup) {
+    setTimeout(() => {
+      document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+  }
+}
 
   /**
    * Desplaza suavemente hasta la sección indicada por ID
