@@ -7,9 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:gh": "ng build --configuration production --base-href=/",
+    "build:gh": "ng build --configuration production --base-href=/aleviajeinterior/",
     "postbuild:gh": "copy dist\\ale-viaje-interior\\browser\\index.html dist\\ale-viaje-interior\\browser\\404.html",
-     "deploy:gh": "npm run build:gh && npm run postbuild:gh && npx angular-cli-ghpages --dir=dist/ale-viaje-interior/browser --branch=gh-pages --no-silent"
+    "deploy:gh": "npm run build:gh && npm run postbuild:gh && npx angular-cli-ghpages --dir=dist/ale-viaje-interior/browser --branch=gh-pages"
   },
   "private": true,
   "dependencies": {

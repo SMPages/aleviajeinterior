@@ -18,10 +18,10 @@ export class HeroSectionComponent {
   welcomeName: string | undefined;
 
   images = [
-    { src: '/images/carrusel/1.png',  alt: 'Mujer en proceso de sanación emocional' },
-    { src: '/images/carrusel/2.png', alt: 'Sesión de terapia: calma y bienestar' },
-    { src: '/images/carrusel/3.png', alt: 'Meditación guiada para equilibrio emocional' },
-    { src: '/images/carrusel/4.png', alt: 'Meditación guiada para equilibrio emocional' },
+    { src: 'images/carrusel/1.png',  alt: 'Mujer en proceso de sanación emocional' },
+    { src: 'images/carrusel/2.png', alt: 'Sesión de terapia: calma y bienestar' },
+    { src: 'images/carrusel/3.png', alt: 'Meditación guiada para equilibrio emocional' },
+    { src: 'images/carrusel/4.png', alt: 'Meditación guiada para equilibrio emocional' },
   ];
  current = signal(0);
   autoplayMs = 5000;
