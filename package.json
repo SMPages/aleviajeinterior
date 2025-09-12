@@ -9,7 +9,7 @@
     "test": "ng test",
     "build:gh": "ng build --configuration production --base-href=/",
     "postbuild:gh": "copy dist\\ale-viaje-interior\\browser\\index.html dist\\ale-viaje-interior\\browser\\404.html",
-    "deploy:gh": "npm run build:gh && npm run postbuild:gh && npx angular-cli-ghpages --dir=dist/ale-viaje-interior/browser --cname=psicoalejandracabarique.com"
+    "deploy:gh": "npm run build:gh && npm run postbuild:gh && npx angular-cli-ghpages --dir=dist/ale-viaje-interior/browser"
   },
   "private": true,
   "dependencies": {
