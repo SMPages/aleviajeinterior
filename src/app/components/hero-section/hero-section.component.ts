@@ -6,7 +6,7 @@ import { MasterclassWelcomeModalComponent } from "../masterclass-welcome-modal/m
 @Component({
   selector: "app-hero-section",
   standalone: true,
-  imports: [NgIf, NgFor,NgClass , MasterclassSignupComponent, MasterclassWelcomeModalComponent],
+  imports: [NgIf, NgFor , MasterclassSignupComponent, MasterclassWelcomeModalComponent],
   templateUrl: "./hero-section.component.html",
   styleUrls: ["./hero-section.component.scss"],
 })
