@@ -30,13 +30,54 @@
         </div>
       </div>
 
-      <div class="hero__image">
-        <div class="hero__image-container">
-          <img src="/images/profile.jpg"
-               alt="Mujer en proceso de sanación emocional"
-               class="hero__image-img" />
-        </div>
-      </div>
+     <!-- Contenedor del carrusel -->
+<div class="hero__image"
+     role="region"
+     aria-roledescription="carousel"
+     aria-label="Galería de imágenes de la sección hero"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()">
+
+  <div class="hero__image-container">
+
+    <!-- Slides -->
+    <div class="hero__slides">
+      <img
+        *ngFor="let img of images; let i = index"
+        [src]="img.src"
+        [alt]="img.alt"
+        class="hero__image-img"
+        [class.is-active]="current() === i"
+        [attr.aria-hidden]="current() === i ? 'false' : 'true'"
+        decoding="async"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Controles (opcionales) -->
+    <button class="hero__ctrl hero__ctrl--prev" type="button" (click)="prev()" aria-label="Imagen anterior">
+      ‹
+    </button>
+    <button class="hero__ctrl hero__ctrl--next" type="button" (click)="next()" aria-label="Siguiente imagen">
+      ›
+    </button>
+
+    <!-- Indicadores -->
+    <div class="hero__dots" role="tablist" aria-label="Indicadores de carrusel">
+      <button
+        *ngFor="let _ of images; let i = index"
+        class="hero__dot"
+        type="button"
+        role="tab"
+        [attr.aria-selected]="current() === i"
+        [class.is-active]="current() === i"
+        (click)="goTo(i)"
+        [attr.aria-label]="'Ir a la imagen ' + (i + 1)">
+      </button>
+    </div>
+
+  </div>
+</div>
     </div>
 
     <!-- Formulario -->

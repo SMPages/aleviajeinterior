@@ -178,3 +178,88 @@ $cta-second:   $al-salvia;
 @media (prefers-reduced-motion: reduce) {
   .hero__cta, .offer-strip__cta { transition: none !important; }
 }
+
+
+/* Ajusta a tu layout actual */
+.hero__image {
+  position: relative;
+  width: 100%;
+}
+
+.hero__image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.hero__slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Todas las imágenes apiladas, solo una visible */
+.hero__image-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 520px;         /* ajusta a tu altura del hero */
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 500ms ease, transform 700ms ease;
+  will-change: opacity, transform;
+}
+
+.hero__image-img.is-active {
+  opacity: 1;
+  transform: scale(1);
+  position: relative; /* para que la activa esté “por encima” correctamente */
+}
+
+/* Controles */
+.hero__ctrl {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  border: none;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background(200ms) ease;
+}
+
+.hero__ctrl:hover { background: rgba(0,0,0,0.5); }
+.hero__ctrl--prev { left: 10px; }
+.hero__ctrl--next { right: 10px; }
+
+/* Dots */
+.hero__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.hero__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: transform 120ms ease, background(200ms) ease;
+}
+
+.hero__dot.is-active {
+  background: #fff;
+  transform: scale(1.2);
+}
