@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:gh": "ng build --configuration production --base-href /",
+    "postbuild:spa": "copy dist\\PsicoAlejandraCabarique\\browser\\index.html dist\\PsicoAlejandraCabarique\\browser\\404.html",
+    "deploy:gh": "npm run build:gh && npm run postbuild:spa && npx angular-cli-ghpages --dir=dist/PsicoAlejandraCabarique/browser --cname=draalejandracabarique.com"
   },
   "private": true,
   "packageManager": "npm@11.9.0",

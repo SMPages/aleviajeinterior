@@ -1,0 +1,155 @@
+.about {
+  padding: 8rem 5%;
+  background-color: var(--color-white);
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .about-image {
+      position: relative;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        left: 3%;
+        width: 90%;
+        height: 100%;
+        border-radius: 400px 400px 0 0;
+        border: 2px solid var(--color-sage);
+        z-index: 0;
+      }
+
+      .arch-frame {
+        width: 90%;
+        height: 100%;
+        border-radius: 400px 400px 0 0; /* Arco perfecto arriba, recto abajo */
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08); /* Sombra elegante */
+        position: relative;
+        z-index: 1;
+        background-color: var(--color-beige);
+        
+        .about-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+          
+          &:hover {
+            transform: scale(1.03); /* Zoom muy sutil fotográfico */
+          }
+        }
+      }
+    }
+
+    .about-text {
+      .badge {
+        display: inline-block;
+        padding: 0.35rem 1rem;
+        background-color: rgba(211, 167, 165, 0.3); /* Rosa translúcido */
+        color: var(--color-dark);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.2rem;
+      }
+
+      h2 {
+        font-size: 3.5rem; /* Aumentado */
+        margin-bottom: 2rem;
+        color: var(--color-dark);
+        line-height: 1.1;
+      }
+
+      p {
+        font-size: 1.25rem; /* Aumentado */
+        margin-bottom: 1.8rem;
+        color: rgba(62, 53, 51, 0.95); /* Color pleno, menos opacidad */
+        line-height: 1.8;
+      }
+
+      .instagram-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        font-family: var(--font-text);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--color-dark);
+        padding: 0.8rem 1.8rem;
+        border: 1px solid rgba(62, 53, 51, 0.2);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+
+        .ig-icon {
+          color: var(--color-rose);
+          font-size: 1.2rem;
+        }
+
+        &:hover {
+          background-color: var(--color-rose);
+          border-color: var(--color-rose);
+          color: var(--color-dark);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(211, 167, 165, 0.3);
+          
+          .ig-icon {
+            color: var(--color-dark);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .about .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    .about-image {
+      height: 450px;
+      order: 2;
+    }
+    .about-text {
+      order: 1;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 5%;
+    
+    .about-grid {
+      .about-text {
+        h2 { font-size: 2.5rem; }
+        p { font-size: 1.1rem; }
+        .instagram-link { 
+          width: 100%; 
+          justify-content: center; 
+        }
+      }
+      
+      .about-image {
+        height: 350px;
+        &::before { left: 0; width: 100%; }
+        .arch-frame { width: 100%; }
+      }
+    }
+  }
+}
